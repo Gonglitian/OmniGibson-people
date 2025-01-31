@@ -75,32 +75,32 @@ og.sim.stop()
 assert og.sim.is_stopped()  # sim should be stopped now
 
 # Enable the extensions for people
-# EXTENSIONS_PEOPLE = [
-#     'omni.anim.people',
-#     'omni.anim.navigation.bundle',
-#     'omni.anim.timeline',
-#     'omni.anim.graph.bundle',
-#     'omni.anim.graph.core',
-#     'omni.anim.graph.ui',
-#     'omni.anim.retarget.bundle',
-#     'omni.anim.retarget.core',
-#     'omni.anim.retarget.ui',
-#     'omni.kit.scripting',
-#     'omni.graph.io',
-#     'omni.anim.curve.core',
-# ]
-
-# for ext_people in EXTENSIONS_PEOPLE:
-#     lazy.omni.isaac.core.utils.extensions.enable_extension(ext_people)
+EXTENSIONS_PEOPLE = [
+    'omni.anim.people',
+    'omni.anim.navigation.bundle',
+    'omni.anim.timeline',
+    'omni.anim.graph.bundle',
+    'omni.anim.graph.core',
+    'omni.anim.graph.ui',
+    'omni.anim.retarget.bundle',
+    'omni.anim.retarget.core',
+    'omni.anim.retarget.ui',
+    'omni.kit.scripting',
+    'omni.graph.io',
+    'omni.anim.curve.core',
+]
+for ext_people in EXTENSIONS_PEOPLE:
+    lazy.omni.isaac.core.utils.extensions.enable_extension(ext_people)
 
 def setup_people_ext():
-    from people.people_test import test
-    test()
+    import people
+    people.test()
+    
 
-for _ in range(3000):
+for _ in range(3000): # wait for people extension to setup using python code
     # only run setup_people_ext once in loop
-    # if _ == 0:
-    #     setup_people_ext()
+    if _ == 0:
+        setup_people_ext() # initialize people, bind script etc.
     og.sim.render()
 
 
